@@ -1,11 +1,14 @@
 const gameBoard = document.querySelector("#gameBoard");
 const ctx = gameBoard.getContext("2d");
 const scoreText = document.querySelector("#scoreText");
+const blueScore = document.querySelector("#blueScore")
+const redScore = document.querySelector("#redScore")
+
 const resetBtn = document.querySelector("#resetBtn");
 const gameWidth = gameBoard.width;
 const gameHeight = gameBoard.height;
 const boardBackground = "forestgreen";
-const paddle1Color = "lightblue";
+const paddle1Color = "blue";
 const paddle2Color = "red";
 const paddleBorder = "black";
 const ballColor = "yellow";
@@ -129,6 +132,12 @@ function checkCollision() {
             if(ballSpeed < 5){
                 ballSpeed += 0.5;
             }
+
+            paddle1.width -= 5;
+            setTimeout(() => {
+                // Restore the width of paddle1 after a delay
+                paddle1.width += 5;
+            }, 100); // Adjust the delay time (in milliseconds) as needed
         }
     }
 
@@ -139,6 +148,14 @@ function checkCollision() {
             if(ballSpeed < 5){
                 ballSpeed += 0.5;
             }
+
+            paddle2.x += 5;
+            paddle2.width -= 5;
+            setTimeout(() => {
+                // Restore the width of paddle2 after a delay
+                paddle2.width += 5;
+                paddle2.x -= 5;
+            }, 100); // Adjust the delay time (in milliseconds) as needed
         }
     }
 }
@@ -175,7 +192,8 @@ function changeDirection(event) {
 }
 
 function updateScore() {
-    scoreText.textContent = `${player1Score} : ${player2Score}`
+    blueScore.textContent = player1Score;
+    redScore.textContent = player2Score;
 }
 
 function resetGame() {
